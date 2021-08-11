@@ -1,2 +1,181 @@
-// This is where you can import other stylesheets or write your scss code
-@import "../../node_modules/bootstrap/scss/bootstrap";
+/* SCSS HSL */
+
+$grad1: hsla(220, 4%, 86%, 0.4);
+$grad2: hsla(177, 100%, 4%, 0.4);
+
+$font-color: hsla(0, 0%, 91%, 1);
+$accent: hsla(25, 97%, 55%, 1);
+$bg-color: hsla(25, 97%, 55%, 1);
+
+body {
+    margin: 0;
+    height: 100%;
+    color: $font-color;
+    font-family: "Trirong", serif;
+    background: linear-gradient(to right, $grad1 0%, $grad2 25%),
+        url("https://images.unsplash.com/photo-1584652812805-2192cf80731d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1420&q=80");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+body * {
+    box-sizing: border-box;
+
+    font-size: 1rem;
+}
+
+h5 {
+    font-family: "Poppins", sans-serif;
+}
+
+.header {
+    grid-area: header;
+}
+
+div.bar {
+    //grid-area: header;
+    mix-blend-mode: hard-light;
+    display: flex;
+    padding: 0;
+    border-radius: 0;
+    margin: 0 10px 0 20px;
+    background: $bg-color;
+    div.circ {
+        border-radius: 50%;
+
+        background-color: #808080;
+
+        width: 50px;
+        height: 50px;
+        transform: translatex(-30px);
+        div.grandcirc {
+            background: $accent;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            transform: translatey(2px);
+        }
+    }
+    .tria {
+        background-color: #808080;
+        width: 54px;
+        height: 50px;
+        margin-left: auto;
+        clip-path: polygon(50% 0, 100% 0%, 100% 100%, 0% 100%);
+        transform: translatex(9px);
+        .inner-tria {
+            background: $accent;
+            display: none;
+            width: 50px;
+            height: 50px;
+            transform: translatex(4px);
+            clip-path: polygon(53% 0, 0% 100%, 100% 100%);
+        }
+    }
+}
+
+ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+    li {
+        padding: 0px 5px 5px;
+        font-family: "Poppins", sans-serif;
+    }
+}
+
+.triangle {
+    height: 200px;
+    width: calc(100% - 25px - 54px);
+    transform: translatex(21px);
+}
+
+.triangle-light {
+    fill: $bg-color;
+    mix-blend-mode: hard-light;
+    path {
+        stroke: $bg-color;
+    }
+}
+.triangle-bottom {
+    transform: translatey(5px) translatex(20px);
+    width: calc(100% - 49px);
+}
+.item-1 {
+    grid-area: tl;
+}
+.item-2 {
+    grid-area: tr;
+}
+/*higher specifity*/
+div.item-3 {
+    grid-area: center;
+    mix-blend-mode: hard-light;
+    position: relative;
+    clip-path: circle(55% at 50% 50%);
+
+    div.inner {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        clip-path: circle(54% at 50% 50%);
+        top: 0;
+        left: 0;
+        background: #808080;
+        div.grandchild {
+            width: 90%;
+            height: 90%;
+            border-radius: 50%;
+            position: absolute;
+            background: $accent;
+            top: 5%;
+            left: 5%;
+        }
+    }
+}
+.item-4 {
+    grid-area: bl;
+}
+.item-5 {
+    grid-area: br;
+}
+.footer {
+    grid-area: footer;
+}
+.container {
+    max-width: 1500px;
+    margin: auto;
+}
+.wrapper {
+    display: grid;
+    margin: 0 10px;
+
+    min-height: 100vh;
+    grid-gap: 20px;
+    grid-template-columns: 300px 500px 300px;
+    grid-template-columns: minmax(300px, 1fr) 500px minmax(300px, 1fr);
+    grid-template-rows: 250px 200px 500px 200px 250px;
+    grid-template-areas:
+        "header header header"
+        "tl .............. tr"
+        "...... center ......"
+        "bl .............. br"
+        "footer  footer  footer";
+}
+
+.box {
+    background-color: $bg-color;
+    mix-blend-mode: hard-light;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 150%;
+}
+
+[class*="item-"] {
+}
+
+.bottom-fix {
+    height: 4px;
+}
