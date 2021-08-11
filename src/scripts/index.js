@@ -1,1 +1,65 @@
-// Any code you will write for your website (in the future!) should go here
+// api url
+const api_url = "https://api.corona-zahlen.org/germany/history/cases/";
+const api_url2 = "https://api.corona-zahlen.org/germany/history/deaths/";
+function getCases(item) {
+    return item.cases;
+}
+function getDeaths(item) {
+    return item.deaths;
+}
+function getDate(item) {
+    date = new Date(item.date);
+    return date;
+}
+
+// Defining async function
+async function getapi(url) {
+    // Storing response
+    const response = await fetch(url);
+
+    // Storing data in form of JSON
+    var data = await response.json();
+    var cases = data.data.map(getCases);
+    var deaths = data.data.map(getDeaths);
+    var date = data.data.map(getDate);
+    return [date, deaths];
+}
+// Calling that async function
+(async () => {
+    console.log(await getapi(api_url2));
+    var response = await getapi(api_url2);
+    var date = response[0];
+    var cases = response[1];
+    //SETUP
+    const labels = date; //time axis
+    const data = {
+        labels: labels,
+        datasets: [
+            {
+                label: "My First Dataset",
+                data: cases,
+                fill: false,
+                borderColor: "rgb(75, 192, 192)",
+                tension: 0.1,
+            },
+        ],
+    };
+    var ctx = document.getElementById("myChart").getContext("2d");
+    //CONFIG
+    var myChart = new Chart(ctx, {
+        type: "line",
+        data: data,
+        options: {
+            scales: {
+                xAxes: [
+                    {
+                        type: "time",
+                        time: {
+                            unit: "week",
+                        },
+                    },
+                ],
+            },
+        },
+    });
+})();
