@@ -1,9 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP&family=Roboto:wght@500&display=swap");
 /* SCSS HSL */
 
 $grad1: hsla(220, 4%, 86%, 0.4);
 $grad2: hsla(177, 100%, 4%, 0.4);
-
-$font-color: hsla(0, 0%, 91%, 1);
+$font-color: hsla(343, 100%, 3%, 1);
+//$font-color: hsla(0, 0%, 91%, 1);
 $accent: hsla(25, 97%, 55%, 1);
 $bg-color: hsla(25, 97%, 55%, 1);
 
@@ -12,6 +13,7 @@ body {
     height: 100%;
     color: $font-color;
     font-family: "Trirong", serif;
+    font-family: "Noto Sans JP", sans-serif;
     background: linear-gradient(to right, $grad1 0%, $grad2 25%),
         url("https://images.unsplash.com/photo-1584652812805-2192cf80731d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1420&q=80");
     background-repeat: no-repeat;
@@ -24,8 +26,13 @@ body * {
     font-size: 1rem;
 }
 
+h5,
+.bar {
+    font-family: "Roboto", sans-serif;
+}
+
 h5 {
-    font-family: "Poppins", sans-serif;
+    letter-spacing: 0.1rem;
 }
 
 .header {
@@ -106,15 +113,30 @@ ul {
 .item-1 {
     grid-area: tl;
 }
+#center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-area: tc;
+    width: 90%;
+}
 .item-2 {
     grid-area: tr;
 }
+
+.hc {
+    display: flex;
+    align-items: center;
+}
 /*higher specifity*/
 div.item-3 {
+    margin: 50px;
     grid-area: center;
-    mix-blend-mode: hard-light;
+    // mix-blend-mode: hard-light;
     position: relative;
     clip-path: circle(55% at 50% 50%);
+    // transform: scale(1.1);
+    // animation: animateHeart 1.2s infinite;
 
     div.inner {
         position: absolute;
@@ -125,6 +147,9 @@ div.item-3 {
         left: 0;
         background: #808080;
         div.grandchild {
+            display: flex;
+            justify-content: center;
+            align-items: center;
             width: 90%;
             height: 90%;
             border-radius: 50%;
@@ -132,9 +157,15 @@ div.item-3 {
             background: $accent;
             top: 5%;
             left: 5%;
+            #middle {
+                font-size: 1.5rem;
+                text-transform: uppercase;
+                // animation: animateHeart 1.2s infinite;
+            }
         }
     }
 }
+
 .item-4 {
     grid-area: bl;
 }
@@ -159,9 +190,9 @@ div.item-3 {
     grid-template-rows: 250px 200px 500px 200px 250px;
     grid-template-areas:
         "header header header"
-        "tl .............. tr"
-        "...... center ......"
-        "bl .............. br"
+        "tl tc tr"
+        "cl center cr"
+        "bl bc br"
         "footer  footer  footer";
 }
 
@@ -173,9 +204,32 @@ div.item-3 {
     font-size: 150%;
 }
 
-[class*="item-"] {
+[class*="item-"]::not([class="item-3"]) {
+    border: red solid;
 }
 
 .bottom-fix {
     height: 4px;
+}
+
+@keyframes animateHeart {
+    // scale down and scale up faster in irregular intervals to get the throbbing effect
+    0% {
+        transform: scale(0.8);
+    }
+    5% {
+        transform: scale(0.9);
+    }
+    10% {
+        transform: scale(0.8);
+    }
+    15% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(0.8);
+    }
+    100% {
+        transform: scale(0.8);
+    }
 }
